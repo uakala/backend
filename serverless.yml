@@ -5,8 +5,13 @@ provider:
   runtime: nodejs18.x
 
 functions:
-  app:
+  api:
     handler: src/app.handler
     events:
       - http: ANY /
       - http: ANY /{proxy+}
+    environment:
+      HOST_DB: uakala-prod.cxy6yg0i4dno.us-east-1.rds.amazonaws.com
+      RDS_USERNAME: uakala
+      RDS_PASSWORD: uakala2024
+      RDS_DB_NAME: uakala
