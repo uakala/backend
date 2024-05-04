@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import serverless from 'serverless-http'; // Import serverless-http
 
 import gptRoutes from './api/routes/gptRoutes.js';
+import productRoutes from "./api/routes/productRoutes.js";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/gpt', gptRoutes);
+app.use('/api/products', productRoutes);
 
 
 
