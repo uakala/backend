@@ -33,21 +33,21 @@ class GPTService {
                     {
                         role: "user",
                         content: [
-                            { type: "text", text: "What’s in this image?" },
+                            { type: "text", text: "Necesitaria que obtuvieses todos los datos de la carta y los muestres como un JSON(Unicamente devuelve el JSON, no digas nada)" },
                             {
                                 type: "image_url",
                                 image_url: {
-                                    url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+                                    url: `data:image/jpeg;base64,${base64Image}`
                                 },
                             },
                         ],
                     },
                 ],
             });
-            console.log(response);
+            return response.choices[0].message.content
         } catch (error) {
             console.error('Error processing image with GPT-4 Turbo Vision:', error);
-            throw new Error("Failed to process image with GPT-4 Turbo Vision", error);
+            throw new Error("Failed to process image with GPT-4 Turbo Vision");
         }
     }
 }
