@@ -1,5 +1,7 @@
 import OpenAI from "openai";
 
+
+const productservice = new GPTService();
 // Servicio GPT para interactuar con la API de OpenAI
 class GPTService {
     constructor(apiKey) {
@@ -44,6 +46,7 @@ class GPTService {
                     },
                 ],
             });
+
             return JSON.parse(response.choices[0].message.content);
         } catch (error) {
             console.error('Error processing image with GPT-4 Turbo Vision:', error);
