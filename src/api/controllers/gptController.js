@@ -19,7 +19,7 @@ const upload = multer({ storage: storage });
 
 async function handleChatRequest(req, res) {
     try {
-        const messages = req.body.message;
+        const messages = req.body.messages;
 
         if (!messages) {
             return res.status(400).json({error: "No messages to send"});
