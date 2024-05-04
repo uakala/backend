@@ -1,6 +1,5 @@
 import OpenAI from "openai";
 import ProductService from "./productService.js";
-import productService from "./productService.js";
 
 
 const productservice= new ProductService();

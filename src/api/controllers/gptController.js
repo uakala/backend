@@ -1,10 +1,8 @@
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { dirname } from 'path';
 import multer from 'multer';
 import GPTService from "../../services/gptService.js";
 import dotenv from "dotenv";
-import fs from 'fs';
-import * as path from "node:path";
 
 dotenv.config();
 
@@ -14,19 +12,8 @@ const gptService = new GPTService(process.env.OPENAI_API_KEY);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Configuración de almacenamiento para Multer
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const uploadsDir = join(__dirname, '../../../uploads');
-        if (!fs.existsSync(uploadsDir)) {
-            fs.mkdirSync(uploadsDir, { recursive: true });
-        }
-        cb(null, uploadsDir);
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
+// Configuración de almacenamiento en memoria para Multer
+const storage = multer.memoryStorage();
 
 const upload = multer({ storage: storage });
 
@@ -50,8 +37,7 @@ async function handleImageUpload(req, res) {
     if (!req.file) {
         return res.status(400).send('No file uploaded.');
     }
-    const image = fs.readFileSync(req.file.path);
-    const base64Image = Buffer.from(image).toString('base64');
+    const base64Image = Buffer.from(req.file.buffer).toString('base64');
 
     try {
         const description = await gptService.analyzeImage(base64Image);
