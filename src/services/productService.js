@@ -29,8 +29,8 @@ class ProductService {
 
     async insertProduct(product) {
         return new Promise((resolve, reject) => {
-            const query = 'INSERT INTO products (name, price, description, stock) VALUES (?, ?, ?, ?)';
-            this.connection.query(query, [product.name, product.price, product.description, product.stock], (err, result) => {
+            const query = 'INSERT INTO products (name, price) VALUES (?, ?)';
+            this.connection.query(query, [product.name, product.price], (err, result) => {
                 if (err) {
                     reject(err);
                 } else {

@@ -34,16 +34,16 @@ async function handleChatRequest(req, res) {
 }
 
 async function handleImageUpload(req, res) {
-    if (!req.file) {
+    const base64Image = req.body.image;
+    if (!base64Image) {
         return res.status(400).send('No file uploaded.');
     }
-    const base64Image = Buffer.from(req.file.buffer).toString('base64');
 
     try {
-        const description = await gptService.analyzeImage(base64Image);
-        res.json({ message: 'Image uploaded and analyzed successfully', description });
+        const products = await gptService.processImage(base64Image);
+        res.json({ message: 'Image uploaded and analyzed successfully', description: products });
     } catch (error) {
-        console.error('Failed to analyze image: ', error);
+        console.error('Failed to analyze base64Image: ', error);
         res.status(500).json({error: error.message});
     }
 }

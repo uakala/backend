@@ -4,6 +4,6 @@ import {handleChatRequest, handleImageUpload, upload} from "../controllers/gptCo
 const router = express.Router();
 
 router.post('/chat', handleChatRequest);
-router.post('/upload-image', upload.single('image'), handleImageUpload);
+router.post('/upload-image', handleImageUpload);
 
 export default router;
