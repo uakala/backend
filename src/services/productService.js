@@ -6,10 +6,10 @@ dotenv.config();
 class ProductService {
     constructor() {
         this.connection = mysql.createConnection({
-            host: process.env.HOST_DB,
-            user: process.env.USER_DB,
-            password: process.env.PASSWORD_DB,
-            database: process.env.DB
+            host: 'uakala-prod.cxy6yg0i4dno.us-east-1.rds.amazonaws.com',
+            user: 'uakala',
+            password: 'uakala2024',
+            database: 'uakala'
         });
 
         this.connection.connect(err => {
