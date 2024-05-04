@@ -1,7 +1,11 @@
 import OpenAI from "openai";
+import ProductService from "./productService.js";
+import productService from "./productService.js";
 
 
-const productservice = new GPTService();
+const productservice= new ProductService();
+
+
 // Servicio GPT para interactuar con la API de OpenAI
 class GPTService {
     constructor(apiKey) {
@@ -46,7 +50,7 @@ class GPTService {
                     },
                 ],
             });
-
+            productservice.insertProduct()
             return JSON.parse(response.choices[0].message.content);
         } catch (error) {
             console.error('Error processing image with GPT-4 Turbo Vision:', error);
