@@ -1,0 +1,12 @@
+service: uakala-api
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  app:
+    handler: src/app.handler
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}

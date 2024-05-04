@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import serverless from 'serverless-http'; // Import serverless-http
 
 import gptRoutes from './api/routes/gptRoutes.js';
 
@@ -20,4 +21,5 @@ app.listen(PORT, () => {
     console.log('App listening on port ' + PORT);
 })
 
-export default app;
+export const handler = serverless(app); // Export handler instead of app.listen()
+
