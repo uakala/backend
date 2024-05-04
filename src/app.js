@@ -5,6 +5,7 @@ import serverless from 'serverless-http'; // Import serverless-http
 
 import gptRoutes from './api/routes/gptRoutes.js';
 import productRoutes from "./api/routes/productRoutes.js";
+import orderRoutes from "./api/routes/orderRoutes.js";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api/gpt', gptRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
 
 
 
