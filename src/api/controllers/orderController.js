@@ -25,4 +25,15 @@ async function handlePlaceOrder(req, res) {
     }
 }
 
-export { handlePlaceOrder };
+async function handleGetActiveOrder(req, res) {
+    try {
+        const phone = req.query.phone.trim();
+        let result = await orderService.getActiveOrderByPhone('+' + phone);
+        res.json(result);
+    } catch (error) {
+        console.error('Failed to get active order: ', error);
+        res.status(500).json({error: error.message});
+    }
+}
+
+export { handlePlaceOrder, handleGetActiveOrder };

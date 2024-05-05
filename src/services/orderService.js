@@ -15,6 +15,25 @@ class OrderService {
         });
     }
 
+    async getActiveOrderByPhone(phone) {
+        return new Promise((resolve, reject) => {
+            this.connection.query("SELECT * FROM customers WHERE phone = ?", [phone], (err, results) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    const customerId = results[0].customerid;
+                    this.connection.query("SELECT * FROM orders WHERE customerId = ? AND status = 'PENDING'", [customerId], (err, results) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(results);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
     async handlePlaceOrder(customerId, products, total) {
         return new Promise((resolve, reject) => {
             const query = "INSERT INTO orders (customerId, orderDate, status, total) VALUES (?, NOW(), 'PENDING', ?)";
